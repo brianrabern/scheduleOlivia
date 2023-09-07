@@ -5,10 +5,13 @@ import "./App.css";
 
 function App() {
   const [currentDay, setCurrentDay] = useState("");
-  // const [currentDateObject, setCurrentDateObject] = useState(null);
   const [currentDate, setCurrentDate] = useState("");
   const [currentTime, setCurrentTime] = useState("");
   const [currentColor, setCurrentColor] = useState(null);
+
+  const search = window.location.search;
+  const params = new URLSearchParams(search);
+  const student = params.get("student");
 
   const dayPeriods = {
     B: ["1B", "2", "4", "5", "7"],
@@ -23,18 +26,38 @@ function App() {
   };
   const periodList = getPeriods(currentColor);
 
-  const student1 = "Olivia Rabern";
-  const oliviaSchedule = {
-    "1B": { Subject: "Math Strat", Room: "D7", Teacher: "Newell" },
-    "1G": { Subject: "(free)", Room: "n/a", Teacher: "n/a" },
-    "1W": { Subject: "Math Strategies 2", Room: "D7", Teacher: "Newell" },
-    2: { Subject: "Biology 1", Room: "S15", Teacher: "Frye" },
-    3: { Subject: "ASL 1", Room: "S16", Teacher: "Howard" },
-    4: { Subject: "US History", Room: "C11", Teacher: "Craven" },
-    5: { Subject: "Math 2", Room: "C12", Teacher: "Johnson" },
-    6: { Subject: "Lit/Comp 2", Room: "S18", Teacher: "Baird" },
-    7: { Subject: "Health 2", Room: "M6", Teacher: "Kernen" },
+  const studentSchedules = {
+    olivia: {
+      name: "Olivia Rabern",
+      schedule: {
+        "1B": { Subject: "Math Strat", Room: "D7", Teacher: "Newell" },
+        "1G": { Subject: "(free)", Room: "n/a", Teacher: "n/a" },
+        "1W": { Subject: "Math Strat", Room: "D7", Teacher: "Newell" },
+        2: { Subject: "Biology 1", Room: "S15", Teacher: "Frye" },
+        3: { Subject: "ASL 1", Room: "S16", Teacher: "Howard" },
+        4: { Subject: "US History", Room: "C11", Teacher: "Craven" },
+        5: { Subject: "Math 2", Room: "C12", Teacher: "Johnson" },
+        6: { Subject: "Lit/Comp 2", Room: "S18", Teacher: "Baird" },
+        7: { Subject: "Health 2", Room: "M6", Teacher: "Kernen" },
+      },
+    },
+    adisyn: {
+      name: "Adisyn Rabern",
+      schedule: {
+        "1B": { Subject: "Math Strat", Room: "D7", Teacher: "Newell" },
+        "1G": { Subject: "(free)", Room: "n/a", Teacher: "n/a" },
+        "1W": { Subject: "Math Strat", Room: "D7", Teacher: "Newell" },
+        2: { Subject: "Biology 1", Room: "S15", Teacher: "Frye" },
+        3: { Subject: "Lit/Comp 2", Room: "S18", Teacher: "Baird" },
+        4: { Subject: "Math 2", Room: "D7", Teacher: "Newell" },
+        5: { Subject: "US History", Room: "B16", Teacher: "Kurtz-Nicholl" },
+        6: { Subject: "Drawing", Room: "D1", Teacher: "Lockwood" },
+        7: { Subject: "Health 2", Room: "M6", Teacher: "Kernen" },
+      },
+    },
   };
+
+  const selectedStudent = studentSchedules[student];
 
   const startDate = new Date("9/7/2023");
   const endDate = new Date("12/15/2023");
@@ -179,7 +202,7 @@ function App() {
             Schedule for {currentDate}
           </h1>
           <p className={`text-sm ${headingFontColor} font-bold text-center`}>
-            {student1}
+            {selectedStudent["name"]}
           </p>
           <br></br>
 
@@ -214,18 +237,18 @@ function App() {
                     {currentColor === "none" ? "no school" : time}
                   </td>
                   <td className="py-2 border-r border-gray-400 text-center">
-                    {oliviaSchedule[periodList[index]]
-                      ? oliviaSchedule[periodList[index]].Subject
+                    {selectedStudent["schedule"][periodList[index]]
+                      ? selectedStudent["schedule"][periodList[index]].Subject
                       : ""}
                   </td>
                   <td className="py-2 border-r border-gray-400 text-center">
-                    {oliviaSchedule[periodList[index]]
-                      ? oliviaSchedule[periodList[index]].Room
+                    {selectedStudent["schedule"][periodList[index]]
+                      ? selectedStudent["schedule"][periodList[index]].Room
                       : ""}
                   </td>
                   <td className="py-2 text-center">
-                    {oliviaSchedule[periodList[index]]
-                      ? oliviaSchedule[periodList[index]].Teacher
+                    {selectedStudent["schedule"][periodList[index]]
+                      ? selectedStudent["schedule"][periodList[index]].Teacher
                       : ""}
                   </td>
                 </tr>
