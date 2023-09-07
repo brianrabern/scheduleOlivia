@@ -1,6 +1,6 @@
 {
   "name": "class-schedule-app",
-  "homepage": "https://brianrabern.github.io/scheduleOlivia",
+  "homepage": "https://brianrabern.github.io/schedule",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
