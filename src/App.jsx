@@ -94,7 +94,7 @@ function App() {
     : [];
 
   useEffect(() => {
-    const currentDate = new Date("11/27/2023");
+    const currentDate = new Date();
     const currentDateString = currentDate.toDateString();
     const date = currentDate.toLocaleDateString("en-US");
     const day = currentDate.toLocaleDateString("en-US", { weekday: "long" });
