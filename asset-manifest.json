@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/scheduleOlivia/static/css/main.3192bf91.css",
-    "main.js": "/scheduleOlivia/static/js/main.1cd457c4.js",
-    "static/media/bhs.png": "/scheduleOlivia/static/media/bhs.2a5982da209872c9d312.png",
-    "index.html": "/scheduleOlivia/index.html",
-    "main.3192bf91.css.map": "/scheduleOlivia/static/css/main.3192bf91.css.map",
-    "main.1cd457c4.js.map": "/scheduleOlivia/static/js/main.1cd457c4.js.map"
+    "main.css": "/schedule/static/css/main.3192bf91.css",
+    "main.js": "/schedule/static/js/main.777892fe.js",
+    "static/media/bhs.png": "/schedule/static/media/bhs.2a5982da209872c9d312.png",
+    "index.html": "/schedule/index.html",
+    "main.3192bf91.css.map": "/schedule/static/css/main.3192bf91.css.map",
+    "main.777892fe.js.map": "/schedule/static/js/main.777892fe.js.map"
   },
   "entrypoints": [
     "static/css/main.3192bf91.css",
-    "static/js/main.1cd457c4.js"
+    "static/js/main.777892fe.js"
   ]
 }
