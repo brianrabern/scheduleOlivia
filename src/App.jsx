@@ -8,6 +8,9 @@ function App() {
   const [currentDate, setCurrentDate] = useState("");
   const [currentTime, setCurrentTime] = useState("");
   const [currentColor, setCurrentColor] = useState(null);
+  const [nextDay, setNextDay] = useState("");
+  const [nextDate, setNextDate] = useState("");
+  const [nextColor, setNextColor] = useState(null);
 
   const search = window.location.search;
   const params = new URLSearchParams(search);
@@ -25,6 +28,7 @@ function App() {
     return ""; // default if day is not recognized
   };
   const periodList = getPeriods(currentColor);
+  const nextPeriodList = getPeriods(nextColor);
 
   const studentSchedules = {
     olivia: {
@@ -38,7 +42,7 @@ function App() {
         4: { Subject: "US History", Room: "C11", Teacher: "Craven" },
         5: { Subject: "Math 2", Room: "C12", Teacher: "Johnson" },
         6: { Subject: "Lit/Comp 2", Room: "S18", Teacher: "Baird" },
-        7: { Subject: "Health 2", Room: "M6", Teacher: "Kernen" },
+        7: { Subject: "Clay", Room: "D1", Teacher: "Lockwood" },
       },
     },
     adisyn: {
@@ -110,11 +114,17 @@ function App() {
 
   const regDays = ["Monday", "Tuesday", "Thursday", "Friday"];
 
-  const times = regDays.includes(currentDay)
-    ? ["8:45", "10:07", "11:24", "1:16", "2:33"]
-    : currentDay === "Wednesday"
-    ? ["8:45", "9:49", "10:48", "12:22", "1:21"]
-    : [];
+  const timeOut = (day) => {
+    return regDays.includes(day) ? "3:45" : day === "Wednesday" ? "2:15" : "";
+  };
+
+  const timesForDay = (day) => {
+    return regDays.includes(day)
+      ? ["8:45", "10:07", "11:24", "1:16", "2:33"]
+      : day === "Wednesday"
+      ? ["8:45", "9:49", "10:48", "12:22", "1:21"]
+      : ["no school", "no school", "no school", "no school", "no school"];
+  };
 
   useEffect(() => {
     const currentDate = new Date();
@@ -124,11 +134,22 @@ function App() {
     const time = currentDate.toLocaleTimeString("en-US");
     const currentColor = colorMap[currentDateString] || "none";
 
+    const nextDate = new Date(currentDate);
+    nextDate.setDate(currentDate.getDate() + 1);
+    const nextDateString = nextDate.toDateString();
+    const date2 = nextDate.toLocaleDateString("en-US");
+    const day2 = nextDate.toLocaleDateString("en-US", { weekday: "long" });
+    const nextColor = colorMap[nextDateString] || "none";
+
     // setCurrentDateObject(currentDate);
     setCurrentDay(day);
+    setNextDay(nextDate);
     setCurrentDate(date);
     setCurrentTime(time);
     setCurrentColor(currentColor);
+    setNextDate(date2);
+    setNextDay(day2);
+    setNextColor(nextColor);
 
     // update time every second
     const intervalId = setInterval(() => {
@@ -140,23 +161,24 @@ function App() {
     return () => clearInterval(intervalId);
   }, [colorMap]);
 
-  const backgroundColor =
-    currentColor === "B"
+  const backColor = (color) => {
+    return color === "B"
       ? "bg-blue-800"
-      : currentColor === "G"
+      : color === "G"
       ? "bg-amber-400"
-      : currentColor === "W"
+      : color === "W"
       ? "bg-slate-100"
       : "bg-slate-500";
-
-  const headingFontColor =
-    currentColor === "B"
+  };
+  const hfontColor = (color) => {
+    return color === "B"
       ? "text-amber-400"
-      : currentColor === "G"
+      : color === "G"
       ? "text-blue-700"
-      : currentColor === "W"
+      : color === "W"
       ? "text-slate-600"
       : "text-black";
+  };
 
   const isSchoolDay = ["B", "G", "W"].includes(currentColor);
 
@@ -181,13 +203,14 @@ function App() {
       return false;
     }
   };
-
+  console.log("cur", timesForDay(currentDay));
+  console.log("next", timesForDay(nextDay));
   return (
     <>
       <div>
         <img src={bhs} alt="BHS Logo" className="mx-2 w-20" />
       </div>
-      <div className={`h-screen ${backgroundColor}`}>
+      <div className={`${backColor(currentColor)}`}>
         <div className="bg-gray-300">
           <p className="mx-2">
             <code>Today is {currentDay}</code>
@@ -196,12 +219,20 @@ function App() {
             <code>Current time is {currentTime}</code>
           </p>
         </div>
-        <div className={backgroundColor}>
+        <div className={backColor(currentColor)}>
           <br></br>
-          <h1 className={`text-2xl ${headingFontColor} font-bold text-center`}>
-            Schedule for {currentDate}
+          <h1
+            className={`text-2xl ${hfontColor(
+              currentColor
+            )} font-bold text-center`}
+          >
+            Today's schedule ({currentDate})
           </h1>
-          <p className={`text-sm ${headingFontColor} font-bold text-center`}>
+          <p
+            className={`text-sm ${hfontColor(
+              currentColor
+            )} font-bold text-center`}
+          >
             {selectedStudent["name"]}
           </p>
           <br></br>
@@ -223,7 +254,7 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              {times.map((time, index) => (
+              {timesForDay(currentDay).map((time, index) => (
                 <tr
                   key={index}
                   className={
@@ -261,8 +292,95 @@ function App() {
               {timeDiffMinutes} minutes until school!
             </div>
           )}
+          <div className="bg-gray-300">
+            <p className="mx-2 text-center">
+              {currentColor === "none"
+                ? "..."
+                : `School ends at ${timeOut(currentDay)}`}
+            </p>
+            <p className="text-sm mx-2"></p>
+          </div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+
           <br></br>
         </div>
+      </div>
+
+      <div className={backColor(nextColor)}>
+        <h1
+          className={`text-2xl ${hfontColor(nextColor)} font-bold text-center`}
+        >
+          Tomorrow's schedule ({nextDate})
+        </h1>
+
+        <br></br>
+
+        <table className="table-fixed w-full border-collapse">
+          <thead>
+            <tr className="bg-gray-300 border-b border-gray-400">
+              <th className="w-1/12 px-4 py-2 border-r border-gray-400"></th>
+              <th className="w-1/8 px-4 py-2 border-r border-gray-400">Time</th>
+              <th className="w-1/8 px-4 py-2 border-r border-gray-400">
+                Subject
+              </th>
+              <th className="w-1/16 px-4 py-2 border-r border-gray-400">
+                Room
+              </th>
+              <th className="w-1/4 px-4 py-2">Teacher</th>
+            </tr>
+          </thead>
+          <tbody>
+            {timesForDay(nextDay).map((time, index) => (
+              <tr
+                key={index}
+                className={
+                  index % 2 === 0 ? "bg-gray-100 h-16" : "bg-white h-16"
+                }
+              >
+                <td className="py-2 text-center border-r border-gray-400">
+                  {nextPeriodList[index]}
+                </td>
+                <td className="py-2 border-r border-gray-400 text-center">
+                  {nextColor === "none" ? "no school" : time}
+                </td>
+                <td className="py-2 border-r border-gray-400 text-center">
+                  {selectedStudent["schedule"][nextPeriodList[index]]
+                    ? selectedStudent["schedule"][nextPeriodList[index]].Subject
+                    : ""}
+                </td>
+                <td className="py-2 border-r border-gray-400 text-center">
+                  {selectedStudent["schedule"][nextPeriodList[index]]
+                    ? selectedStudent["schedule"][nextPeriodList[index]].Room
+                    : ""}
+                </td>
+                <td className="py-2 text-center">
+                  {selectedStudent["schedule"][nextPeriodList[index]]
+                    ? selectedStudent["schedule"][nextPeriodList[index]].Teacher
+                    : ""}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="bg-gray-300">
+          <p className="mx-2 text-center">
+            {nextColor === "none"
+              ? "..."
+              : `School ends at ${timeOut(currentDay)}`}
+          </p>
+          <p className="text-sm mx-2"></p>
+        </div>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
       </div>
     </>
   );
