@@ -63,17 +63,21 @@ function App() {
 
   const selectedStudent = studentSchedules[student];
 
-  const startDate = new Date("9/7/2023");
-  const endDate = new Date("12/15/2023");
+  const startDate = new Date("1/2/2024");
+  const endDate = new Date("6/14/2024");
 
   // array of date strings
   const holidayDateStrings = [
-    "11/10/2023",
-    "11/20/2023",
-    "11/21/2023",
-    "11/22/2023",
-    "11/23/2023",
-    "11/24/2023",
+    "1/15/2024",
+    "2/2/2024",
+    "2/19/2024",
+    "3/25/2024",
+    "3/26/2024",
+    "3/27/2024",
+    "3/28/2024",
+    "4/12/2024",
+    "5/27/2024",
+    "6/19/2024",
   ];
   // array to hold Date objects
   const holidayDates = [];
@@ -212,12 +216,15 @@ function App() {
       </div>
       <div className={`${backColor(currentColor)}`}>
         <div className="bg-gray-300">
-          <p className="mx-2">
-            <code>Today is {currentDay}</code>
+          <p className="text-sm mx-2">
+            <code>Today = {currentDay}</code>
           </p>
           <p className="text-sm mx-2">
-            <code>Current time is {currentTime}</code>
+            <code>Now = {currentTime} 2024</code>
           </p>
+          {/* <p className="text-sm mx-2">
+            <code>Semester 2</code>
+          </p> */}
         </div>
         <div className={backColor(currentColor)}>
           <br></br>
