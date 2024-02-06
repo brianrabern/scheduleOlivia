@@ -34,29 +34,29 @@ function App() {
     olivia: {
       name: "Olivia Rabern",
       schedule: {
-        "1B": { Subject: "Math Strat", Room: "D7", Teacher: "Newell" },
-        "1G": { Subject: "(free)", Room: "n/a", Teacher: "n/a" },
-        "1W": { Subject: "Math Strat", Room: "D7", Teacher: "Newell" },
+        "1B": { Subject: "Foods", Room: "S4", Teacher: "Hasse" },
+        "1G": { Subject: "Foods", Room: "S4", Teacher: "Hasse" },
+        "1W": { Subject: "(free)", Room: "n/a", Teacher: "n/a" },
         2: { Subject: "Biology 1", Room: "S15", Teacher: "Frye" },
         3: { Subject: "ASL 1", Room: "S16", Teacher: "Howard" },
         4: { Subject: "US History", Room: "C11", Teacher: "Craven" },
         5: { Subject: "Math 2", Room: "C12", Teacher: "Johnson" },
         6: { Subject: "Lit/Comp 2", Room: "S18", Teacher: "Baird" },
-        7: { Subject: "Clay", Room: "D1", Teacher: "Lockwood" },
+        7: { Subject: "Health", Room: "M6", Teacher: "Kernen" },
       },
     },
     adisyn: {
       name: "Adisyn Rabern",
       schedule: {
-        "1B": { Subject: "Math Strat", Room: "D7", Teacher: "Newell" },
+        "1B": { Subject: "Clay", Room: "D1", Teacher: "Lockwood" },
         "1G": { Subject: "(free)", Room: "n/a", Teacher: "n/a" },
-        "1W": { Subject: "Math Strat", Room: "D7", Teacher: "Newell" },
+        "1W": { Subject: "Clay", Room: "D1", Teacher: "Lockwood" },
         2: { Subject: "Biology 1", Room: "S15", Teacher: "Frye" },
         3: { Subject: "Lit/Comp 2", Room: "S18", Teacher: "Baird" },
         4: { Subject: "Math 2", Room: "D7", Teacher: "Newell" },
         5: { Subject: "US History", Room: "B16", Teacher: "Kurtz-Nicholl" },
         6: { Subject: "Drawing", Room: "D1", Teacher: "Lockwood" },
-        7: { Subject: "Health 2", Room: "M6", Teacher: "Kernen" },
+        7: { Subject: "P.E.", Room: "Minigm", Teacher: "O'Connell" },
       },
     },
   };
@@ -217,6 +217,9 @@ function App() {
       <div className={`${backColor(currentColor)}`}>
         <div className="bg-gray-300">
           <p className="text-sm mx-2">
+		  <code>SEMESTER 2</code>
+		  </p>
+		  <p className="text-sm mx-2">
             <code>Today = {currentDay}</code>
           </p>
           <p className="text-sm mx-2">
